@@ -15,9 +15,9 @@ Mainly it uses Insomnia software to work with the HTTP Requests but you can use 
 - [@albertscpv](https://github.com/Albertscpv)
 
 
-## License
+# License
 
 ## [MIT](https://choosealicense.com/licenses/mit/)
 
-You can work and share your feedback if you want
+You can work and share your feedback if you want.
 
