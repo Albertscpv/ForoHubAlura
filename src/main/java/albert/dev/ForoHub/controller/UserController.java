@@ -28,7 +28,7 @@ public class UserController {
         UserDataResponse userDataResponse = new UserDataResponse(user.getId(),
                 user.getName(), user.getCellphone(),
                 user.getEmail(), user.getCountry(),user.getPassword(), user.getOnline());
-        URI url = uriComponentsBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
+        URI url = uriComponentsBuilder.path("/users/{Id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(url).body(userDataResponse);
     }
 

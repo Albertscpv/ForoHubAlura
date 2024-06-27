@@ -1,11 +1,8 @@
 package albert.dev.ForoHub.domain.message;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.time.LocalDate;
+
 
 @Entity(name = "Message")
 @Table(name = "message")
@@ -17,6 +14,7 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+
     private String user;
     private String topic;
     private String message;
