@@ -7,6 +7,6 @@ public record AnswerDataRecordList(
         String answer
 ) {
     public AnswerDataRecordList(Answers answers){
-        this(answers.getId(),answers.getUser() ,answers.getMessageToAnswer(), answers.getAnswer());
+        this(answers.getId(),answers.getUser() ,answers.getMessage_to_answer(), answers.getAnswer());
     }
 }

@@ -15,7 +15,7 @@ public class Answers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    private String messageToAnswer;
+    private String message_to_answer;
     private String user;
     private String topic;
     private String creation_date;
@@ -24,7 +24,7 @@ public class Answers {
 
 
     public Answers(AnswerDataRecord answerDataRecord){
-        this.messageToAnswer = answerDataRecord.messageToAnswer();
+        this.message_to_answer = answerDataRecord.message_to_answer();
         this.user = answerDataRecord.user();
         this.topic = answerDataRecord.topic();
         this.creation_date = answerDataRecord.creation_date();
@@ -33,8 +33,8 @@ public class Answers {
     }
 
     public void updateData(UpdateAnswersDTO updateAnswersDTO) {
-    if(updateAnswersDTO.messageToAnswer() != null){
-        this.messageToAnswer = updateAnswersDTO.messageToAnswer();
+    if(updateAnswersDTO.message_to_answer() != null){
+        this.message_to_answer = updateAnswersDTO.message_to_answer();
     }
     if (updateAnswersDTO.answer() != null){
         this.answer = updateAnswersDTO.answer();

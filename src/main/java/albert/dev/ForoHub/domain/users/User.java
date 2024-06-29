@@ -5,46 +5,59 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+
 
 @Entity(name = "User")
 @Table(name = "users")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "Id")
-public class User {
+@EqualsAndHashCode(of = "id")
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-
-    private String name;
-    private String cellphone;
-    private String email;
-    private String country;
+    private Long id;
+    private String login;
     private String password;
-    private Boolean online;
 
-    public User(UserDataRecord userDataRecord) {
-        this.name = userDataRecord.name();
-        this.cellphone = userDataRecord.cellphone();
-        this.email = userDataRecord.email();
-        this.country = userDataRecord.country();
-        this.password = userDataRecord.password();
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
-    public void updateUserData(UpdateUserDataDTO updateUserDataDTO) {
-        if(updateUserDataDTO.name() != null){
-            this.name = updateUserDataDTO.name();
-        }
-        if(updateUserDataDTO.email() != null){
-            this.email = updateUserDataDTO.email();
-        }
-        if(updateUserDataDTO.password() != null){
-            this.password = updateUserDataDTO.password();
-        }
+    @Override
+    public String getPassword() {
+        return password;
     }
 
-    public void deleteUserData() {
-    this.online = false;
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
 }

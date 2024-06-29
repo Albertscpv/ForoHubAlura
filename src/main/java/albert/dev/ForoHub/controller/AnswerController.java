@@ -5,6 +5,7 @@ import albert.dev.ForoHub.domain.answers.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -18,13 +19,16 @@ import java.net.URI;
 @RestController
 @RequestMapping("/answers")
 public class AnswerController {
+
+    @Autowired
     private AnswersRepository answersRepository;
 
     @PostMapping
         public ResponseEntity<AnswerDataResponse> submitAnswer(@RequestBody @Valid AnswerDataRecord answerDataRecord, UriComponentsBuilder uriComponentsBuilder){
         Answers answers = answersRepository.save(new Answers(answerDataRecord));
-        AnswerDataResponse answerDataResponse = new AnswerDataResponse(answers.getId(), answers.getUser(),answers.getMessageToAnswer(),answers.getTopic(), answers.getCreation_date(), answers.getOnline());
-        URI url = uriComponentsBuilder.path("/answer/{Id}").buildAndExpand().toUri();
+        AnswerDataResponse answerDataResponse = new AnswerDataResponse(answers.getId(), answers.getUser(),answers.getMessage_to_answer(),
+                answers.getTopic(), answers.getCreation_date(), answers.getOnline());
+        URI url = uriComponentsBuilder.path("/answers/{Id}").buildAndExpand(answers.getId()).toUri();
         return ResponseEntity.created(url).body(answerDataResponse);
     }
 
@@ -39,7 +43,7 @@ public class AnswerController {
         Answers answers = answersRepository.getReferenceById(updateAnswersDTO.Id());
         answers.updateData(updateAnswersDTO);
         return ResponseEntity.ok(new AnswerDataResponse(answers.getId(), answers.getUser(),
-                answers.getMessageToAnswer(),answers.getTopic(), answers.getCreation_date(), answers.getOnline()));
+                answers.getMessage_to_answer(),answers.getTopic(), answers.getCreation_date(), answers.getOnline()));
     }
 
     @DeleteMapping("{Id}")
@@ -54,7 +58,7 @@ public class AnswerController {
     public ResponseEntity<AnswerDataResponse> getAnswerById(@PathVariable Long Id){
         Answers answers = answersRepository.getReferenceById(Id);
         var answersData = new AnswerDataResponse(answers.getId(), answers.getUser(),
-                answers.getMessageToAnswer(),answers.getTopic(), answers.getCreation_date(), answers.getOnline());
+                answers.getMessage_to_answer(),answers.getTopic(), answers.getCreation_date(), answers.getOnline());
         return ResponseEntity.ok(answersData);
     }
 }

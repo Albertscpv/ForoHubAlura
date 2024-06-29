@@ -17,6 +17,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/message")
 public class MessageController {
+
     @Autowired
     private MessageRepository messageRepository;
 
@@ -25,7 +26,7 @@ public class MessageController {
             Message message = messageRepository.save(new Message(messageDataRecord));
             MessageDataResponse messageDataResponse = new MessageDataResponse(message.getId(), message.getUser(),message.getTopic(),
                     message.getMessage(), message.getCreation_date(), message.getOnline());
-            URI url = uriComponentsBuilder.path("/message/{Id}").buildAndExpand().toUri();
+            URI url = uriComponentsBuilder.path("/message/{id}").buildAndExpand(message.getId()).toUri();
             return ResponseEntity.created(url).body(messageDataResponse);
     }
     @GetMapping

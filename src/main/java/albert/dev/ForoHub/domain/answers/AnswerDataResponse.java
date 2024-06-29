@@ -2,7 +2,7 @@ package albert.dev.ForoHub.domain.answers;
 
 public record AnswerDataResponse(
         Long Id,
-        String messageToAnswer,
+        String message_to_answer,
         String user,
         String topic,
         String creation_date,
